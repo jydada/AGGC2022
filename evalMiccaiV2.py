@@ -88,8 +88,8 @@ def plot_confusion_matrix(cm, Name,
 
 def main():
 
-    annotation_root = "./GroundTruth_2x_indeximage/"
-    seg_root = "./Prediction_2x_indeximage/"
+    annotation_root = "./GT_2x_indeximage/"
+    seg_root = "./prediction_tif/"
 
     # annotations = os.listdir(annotation_root)
 
