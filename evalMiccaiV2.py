@@ -47,7 +47,7 @@ class EvalSegErr(Exception):
 def plot_confusion_matrix(cm, Name,
                           target_names,
                           title='Confusion matrix',
-                          cmap='Blues',  # 这个地方设置混淆矩阵的颜色主题，这个主题看着就干净~
+                          cmap='Blues', 
                           normalize=True):
     accuracy = np.trace(cm) / float(np.sum(cm))
     misclass = 1 - accuracy
