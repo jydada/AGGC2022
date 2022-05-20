@@ -8,5 +8,5 @@ The final F1 score of a subset will be calculated based on the confusion matrix 
 
 Please resize the images to 2x (i.e. downsizing the original images we provided by 10 times) for evaluation.
 
-.\prediction_tif and .\GT_2x_indeximage are some examples of predicition results and the correpsonding ground truth of training images, respectively.
+.\Subset1_Train_PredictionExample_2x_indeximage and .\Subset1_Train_GroundTruth_2x_indeximage are some examples of predicition results and the correpsonding ground truth of training images, respectively.
 
