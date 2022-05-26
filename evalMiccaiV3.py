@@ -84,57 +84,11 @@ def union_classes(eval_segm, gt_segm):
     return cl, n_cl
 
 
-def plot_confusion_matrix(cm, Name,
-                          target_names,
-                          title='Confusion matrix',
-                          cmap='Blues',  # 这个地方设置混淆矩阵的颜色主题，这个主题看着就干净~
-                          normalize=True):
-    accuracy = np.trace(cm) / float(np.sum(cm))
-    misclass = 1 - accuracy
-
-    if cmap is None:
-        cmap = plt.get_cmap('Blues')
-
-    plt.figure(figsize=(9, 7))
-    #    plt.figure()
-    plt.imshow(cm, interpolation='nearest', cmap=cmap)
-    plt.title(title)
-    plt.colorbar()
-
-    if target_names is not None:
-        tick_marks = np.arange(len(target_names))
-        plt.xticks(tick_marks, target_names, rotation=45)
-        plt.yticks(tick_marks, target_names)
-
-    if normalize:
-        cm = cm.astype('float') / cm.sum(axis=1)[:, np.newaxis]
-
-    thresh = cm.max() / 1.5 if normalize else cm.max() / 2
-    for i, j in itertools.product(range(cm.shape[0]), range(cm.shape[1])):
-        if normalize:
-            plt.text(j, i, "{:0.4f}".format(cm[i, j]),
-                     horizontalalignment="center",
-                     color="white" if cm[i, j] > thresh else "black")
-        else:
-            plt.text(j, i, "{:,}".format(cm[i, j]),
-                     horizontalalignment="center",
-                     color="white" if cm[i, j] > thresh else "black")
-
-    plt.tight_layout()
-    plt.ylabel('True label', size=15)
-    plt.xlabel('Predicted label\naccuracy={:0.4f}; misclass={:0.4f}'.format(accuracy, misclass), size=15)
-    plt.savefig('./' + Name + '_Confusion_Matrix.png', format='png', bbox_inches='tight')
-    # plt.show()
-
 def main():
 
     annotation_root = "D:/luhd/Evaluation_AGGC/Subset1_Train_annotation/"
     seg_root = "D:/luhd/Evaluation_AGGC/Subset1_Train_seg/"
-
-    # annotations = os.listdir(annotation_root)
-
     annotations = sorted(glob.glob(annotation_root + '\\' + '*.tif'))
-    # conf_mat = np.zeros((6, 6))
     aa=[]
     bb=[]
     for i, filename in enumerate(annotations):
@@ -163,11 +117,8 @@ def main():
             for j in range(seg.shape[1]):
                 b[cont2] = seg[i, j]
                 cont2 = cont2 + 1
-
         bb.extend(b)
         
-        # plot_confusion_matrix(confusion_matrix(y_true=a, y_pred=b), Name, normalize=False, target_names=["Background", "Stroma", "Normal", "G3", "G4", "G5"],
-        #                       title='Confusion Matrix')
     conf_mat = confusion_matrix(y_true=aa, y_pred=bb)
 
     # Weighted-average F1-score = 0.25 * F1-score_G3 + 0.25 * F1-score_G4 +0.25 * F1-score_G5 +0.125 * F1-score_Normal +0.125 * F1-score_Stroma, where:
