@@ -53,37 +53,6 @@ class EvalSegErr(Exception):
     def __str__(self):
         return repr(self.value)
 
-def extract_both_masks(eval_segm, gt_segm, cl, n_cl):
-    eval_mask = extract_masks(eval_segm, cl, n_cl)
-    gt_mask = extract_masks(gt_segm, cl, n_cl)
-
-    return eval_mask, gt_mask
-
-def extract_masks(segm, cl, n_cl):
-    h, w = segm_size(segm)
-    masks = np.zeros((n_cl, h, w))
-
-    for i, c in enumerate(cl):
-        masks[i, :, :] = segm == c
-
-    return masks
-
-def extract_classes(segm):
-    cl = np.unique(segm)   ##该函数是去除数组中的重复数字，并进行排序之后输出。
-    n_cl = len(cl)
-
-    return cl, n_cl
-
-def union_classes(eval_segm, gt_segm):
-    eval_cl, _ = extract_classes(eval_segm)
-    gt_cl, _ = extract_classes(gt_segm)
-
-    cl = np.union1d(eval_cl, gt_cl)  ##找到两个数组的并集，返回两个输入数组之一中唯一的，排序的值数组。
-    n_cl = len(cl)
-
-    return cl, n_cl
-
-
 def main():
 
     annotation_root = "D:/luhd/Evaluation_AGGC/Subset1_Train_annotation/"
@@ -101,9 +70,7 @@ def main():
         seg = Image.open(seg_path)
         seg = np.array(seg)
         check_size(seg, gt)
-        # cl, n_cl = union_classes(seg, gt)
-        # eval_mask, gt_mask = extract_both_masks(seg, gt, cl, 6)
-        # print(gt.shape[0])
+
         cont1 = 0
         cont2 = 0
         a = list([0]) * (gt.shape[0]*gt.shape[1])
