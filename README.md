@@ -12,5 +12,5 @@ Please resize the images to 2x (i.e. downsizing the original images we provided 
 
 Since there are overlappings in the raw annotation (i.e. some pixels are assigned with more than one labels), in most cases we choose the "most malignant" label for those pixels when we generated the index image of ground truth. However, in some special cases, for example, pathologists elaborately drew a small G3 inside a larger G4 region, although the most malignant class is G4 for those overlapped pixels, we still stick to the lower class G3 instead.
 
-The index images of the the training images are provided for reference.
+The ground truth index images of the the training images are provided for reference.
 
