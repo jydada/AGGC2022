@@ -165,14 +165,7 @@ def main():
                 cont2 = cont2 + 1
 
         bb.extend(b)
-        # c = collections.Counter(a)
-        # print(dict(c)[0])
-        # print(dict(c)[1])
-        # print(dict(c)[2])
-        # print(dict(c)[3])
-        # print(dict(c)[4])
-        # print(dict(c)[5])
-
+        
         # plot_confusion_matrix(confusion_matrix(y_true=a, y_pred=b), Name, normalize=False, target_names=["Background", "Stroma", "Normal", "G3", "G4", "G5"],
         #                       title='Confusion Matrix')
     conf_mat = confusion_matrix(y_true=aa, y_pred=bb)
