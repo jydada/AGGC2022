@@ -43,8 +43,8 @@ class EvalSegErr(Exception):
         return repr(self.value)
 
 def main():
-    annotation_root = "D:/luhd/Evaluation_AGGC/Subset1_Train_annotation/"
-    seg_root = "D:/luhd/Evaluation_AGGC/Subset1_Train_seg/"
+    annotation_root = "./Subset1_Train_GroundTruth_2x_indeximage/"
+    seg_root = "./Subset1_Train_PredictionExample_2x_indeximage/"
     annotations = sorted(glob.glob(annotation_root + '\\' + '*.tif'))
     aa = []
     bb = []
