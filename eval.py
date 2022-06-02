@@ -4,6 +4,9 @@
 Haoda Lu, jydada2018@gmail.com
 2022/05/26
 
+Main function updated by Xinmi Huo, huo_xinmi@bii.a-star.edu.sg
+2022/06/22
+
 Evaluation metrics for AGGC2022 inspired by paper Fully Convolutional Networks for Semantic Segmentation.
 '''
 import os.path
@@ -11,7 +14,7 @@ from PIL import Image
 Image.MAX_IMAGE_PIXELS = None
 import numpy as np
 import glob
-from sklearn.metrics import confusion_matrix
+#from sklearn.metrics import confusion_matrix
 
 
 def segm_size(segm):
@@ -38,16 +41,17 @@ Exceptions
 class EvalSegErr(Exception):
     def __init__(self, value):
         self.value = value
-
+        
     def __str__(self):
         return repr(self.value)
 
 def main():
-    annotation_root = "./Subset1_Train_GroundTruth_2x_indeximage/"
-    seg_root = "./Subset1_Train_PredictionExample_2x_indeximage/"
+    annotation_root = "./GT_2x_indeximage/"
+    seg_root = "./AI_2x_indeximage/"
     annotations = sorted(glob.glob(annotation_root + '\\' + '*.tif'))
-    aa = []
-    bb = []
+#    aa = []
+#    bb = []
+    conf_mat = np.zeros((6,6))
     for i, filename in enumerate(annotations):
         print(" %s  %d / %d" % (filename, i + 1, len(annotations)))
         dirname, Name = os.path.split(filename)
@@ -58,23 +62,26 @@ def main():
         seg = Image.open(seg_path)
         seg = np.array(seg)
         check_size(seg, gt)
+        for i in range(6):
+            for j in range(6):
+                conf_mat[i,j]+=np.sum(np.logical_and(gt==i,seg==j))
 
-        cont1 = 0
-        cont2 = 0
-        a = list([0]) * (gt.shape[0] * gt.shape[1])
-        for i in range(gt.shape[0]):
-            for j in range(gt.shape[1]):
-                a[cont1] = gt[i, j]
-                cont1 = cont1 + 1
-        aa.extend(a)
-        b = list([0]) * (seg.shape[0] * seg.shape[1])
-        for i in range(seg.shape[0]):
-            for j in range(seg.shape[1]):
-                b[cont2] = seg[i, j]
-                cont2 = cont2 + 1
-        bb.extend(b)
-
-    conf_mat = confusion_matrix(y_true=aa, y_pred=bb)
+#        cont1 = 0
+#        cont2 = 0
+#        a = list([0]) * (gt.shape[0] * gt.shape[1])
+#        for i in range(gt.shape[0]):
+#            for j in range(gt.shape[1]):
+#                a[cont1] = gt[i, j]
+#                cont1 = cont1 + 1
+#        aa.extend(a)
+#        b = list([0]) * (seg.shape[0] * seg.shape[1])
+#        for i in range(seg.shape[0]):
+#            for j in range(seg.shape[1]):
+#                b[cont2] = seg[i, j]
+#                cont2 = cont2 + 1
+#        bb.extend(b)
+#
+#    conf_mat = confusion_matrix(y_true=aa, y_pred=bb)
 
     # Weighted-average F1-score = 0.25 * F1-score_G3 + 0.25 * F1-score_G4 +0.25 * F1-score_G5 +0.125 * F1-score_Normal +0.125 * F1-score_Stroma, where:
     #
