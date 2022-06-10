@@ -5,7 +5,7 @@
 Main function updated by Xinmi Huo, huo_xinmi@bii.a-star.edu.sg
 2022/06/22
 
-Evaluation metrics for AGGC2022 inspired by paper Fully Convolutional Networks (FCN) for Semantic Segmentation.
+Evaluation metrics for AGGC2022.
 '''
 import os.path
 from PIL import Image
