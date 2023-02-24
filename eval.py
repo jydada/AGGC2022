@@ -2,7 +2,7 @@
 
 '''
 
-Haoda Lu, luhd@intern.bii.a-star.edu.sg
+Haoda Lu, lu_haoda@bii.a-star.edu.sg
 2022/03/31
 
 Main function updated by Xinmi Huo, huo_xinmi@bii.a-star.edu.sg
